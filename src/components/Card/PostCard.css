@@ -1,0 +1,13 @@
+.parent {
+    width: 100%;
+    max-width: 700px;
+}
+
+.social-icons > button {
+    transition: all 0.2s;
+    transform: scale(1.5);
+}
+
+.social-icons > button:hover {
+    transform: scale(1.8);
+}
