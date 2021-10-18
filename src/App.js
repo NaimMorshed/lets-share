@@ -8,6 +8,7 @@ import {
     Switch
 } from "react-router-dom";
 import {createContext, useState} from "react";
+import Modal from './components/Modal/Modal';
 export const UserContext = createContext();
 
 const App = () => {
@@ -32,6 +33,10 @@ const App = () => {
 
                 <Route exact path="/profile">
                     <Profile />
+                </Route>
+
+                <Route exact path="/modal">
+                    <Modal />
                 </Route>
 
                 <Route exact path="*">

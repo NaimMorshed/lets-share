@@ -20,5 +20,23 @@
   align-items: center;
   font-size: calc(1px + 2vmin);
   color: white;
-  padding: 0 25px;
+  padding: 0 40px 0 25px;
+}
+
+.extendable-sidebar {
+  width: 60px;
+  transition: width 0.5s ease-in-out;
+}
+
+.extendable-sidebar:hover {
+  width: 150px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 820px) {
+  .extendable-sidebar {
+    width: 30px;
+    height: 40px;
+    transition: width 0.5s ease-in-out;
+  }
 }

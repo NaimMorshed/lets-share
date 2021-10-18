@@ -4,7 +4,7 @@ import './PostCard.css';
 const PostCard = ({ props }) => {
     return (
         <div className="App-header2">
-            <div className="my-3 bg-gray-300 text-black p-5 rounded-xl parent">
+            <section className="my-3 bg-gray-300 text-black p-5 rounded-xl parent">
                 <header className="flex h-14">
                     <img className="rounded-full" src={props.userPhoto} alt="user" width="50px" height="100%" />
                     <div className="flex flex-col justify-center ml-2">
@@ -34,7 +34,7 @@ const PostCard = ({ props }) => {
                         </div>
                     </div>
                 </main>
-            </div>
+            </section>
         </div>
     );
 };
