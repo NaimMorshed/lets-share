@@ -8,8 +8,8 @@ const PostCard = ({ props }) => {
                 <header className="flex h-14">
                     <img className="rounded-full" src={props.userPhoto} alt="user" width="50px" height="100%" />
                     <div className="flex flex-col justify-center ml-2">
-                        <h5>{props.userName}</h5>
-                        <span><small>October 6 at 12:59 PM</small></span>
+                        <h5 className="font-bold text-xl">{props.userName}</h5>
+                        <span>October 6 at 12:59 PM</span>
                     </div>
                 </header>
                 <main>
@@ -20,9 +20,18 @@ const PostCard = ({ props }) => {
                         <img className="w-full rounded mb-5" src={props.image} alt="" />
                     </div>
                     <div className="flex justify-around items-center social-icons">
-                        <button>😄</button>
-                        <button>😭</button>
-                        <button>✍</button>
+                        <div>
+                            <button>👍</button>
+                            <span className="relative top-1 left-1 text-lg text-green-800 font-serif">{props.likes}</span>
+                        </div>
+                        <div>
+                            <button>👎</button>
+                            <span className="relative left-1 text-lg text-red-800 font-serif">{props.dislikes}</span>
+                        </div>
+                        <div>
+                            <button>✍</button>
+                            <span className="relative left-1 text-lg top-1 font-serif">{props.comment}</span>
+                        </div>
                     </div>
                 </main>
             </div>

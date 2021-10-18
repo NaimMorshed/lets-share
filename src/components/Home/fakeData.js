@@ -18,7 +18,7 @@ export const fakeData = [
         caption: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident necessitatibus, optio obcaecati dicta aliquid et, quasi aperiam suscipit velit consequatur perferendis! Eveniet consectetur repellat aut harum in dolorum et sit, maxime, recusandae veritatis ut atque tempore fugiat cumque earum quas.",
         image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGVjaG5vbG9neXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
         likes: 100,
-        dislikes: 9,
+        dislikes: 24,
         comment: 0,
     },
 ]

@@ -41,11 +41,11 @@ const Login = () => {
 
     return (
         <div className={"App-header"}>
-            <form onSubmit={formSubmit} className="flex flex-col bg-gray-500 px-10 pt-10 pb-5 rounded-lg text-black">
+            <form onSubmit={formSubmit} className="flex flex-col bg-gray-300 px-10 pt-10 pb-5 rounded-lg text-black">
                 {/* <UserIcon /> */}
                 <input type="text" placeholder={"Enter email"} className="mb-4 rounded-lg px-5 py-1" />
                 <input type="password" placeholder={"Enter password"} className="mb-4 rounded-lg px-5 py-1" />
-                <input type="submit" value="Login" className="mb-4 rounded-lg px-5 py-1" />
+                <input type="submit" value="Login" className="mb-4 rounded-lg px-5 py-1 bg-gray-700 text-white" />
 
                 <div className="social-div m-auto">
                     <button onClick={googleSignIn} className="bg-gray-700 text-white px-3 py-1 rounded m-2">Google</button>
