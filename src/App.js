@@ -8,7 +8,6 @@ import {
     Switch
 } from "react-router-dom";
 import {createContext, useState} from "react";
-import Modal from './components/Modal/Modal';
 export const UserContext = createContext();
 
 const App = () => {
@@ -17,10 +16,12 @@ const App = () => {
         email: null,
         name: null,
         photo: null
-    })
+    });
+
+    const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <UserContext.Provider value={[auth, setAuth]}>
+    <UserContext.Provider value={[auth, setAuth, modalOpen, setModalOpen]}>
         <Router>
             <Switch>
                 <Route exact path="/">
@@ -33,10 +34,6 @@ const App = () => {
 
                 <Route exact path="/profile">
                     <Profile />
-                </Route>
-
-                <Route exact path="/modal">
-                    <Modal />
                 </Route>
 
                 <Route exact path="*">

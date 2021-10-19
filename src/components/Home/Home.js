@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { fakeData } from "./fakeData";
 import PostCard from '../Card/PostCard';
 import { WritePost, Search, ThumbsUp, ThumbsDown, Logout } from '../../assets/HeroIcons';
 import { useHistory } from 'react-router';
+import { ModalUi } from '../../styles/Material/ModalUi';
+import { UserContext } from '../../App';
 
 const Home = () => {
     const history = useHistory();
+    const [auth, setAuth, modalOpen, setModalOpen] = useContext(UserContext);
 
     const writePost = () => {
-        history.push("/modal");
+        setModalOpen(true);
     }
 
     const search = () => {
@@ -66,6 +69,7 @@ const Home = () => {
                     <span className="sidebar-child font-bold absolute left-16">Logout</span>
                 </div>
             </section>
+            <ModalUi />
         </main>
     );
 };
