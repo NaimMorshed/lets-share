@@ -4,7 +4,6 @@ import firebase from "firebase/compat/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import firebaseConfig from '../../firebase.config'
 import { useHistory } from "react-router-dom";
-import { UserIcon } from '../../assets/HeroIcons';
 
 if (!firebase.apps.length)
     firebase.initializeApp(firebaseConfig);
@@ -12,6 +11,7 @@ else
     firebase.app();
 
 const Login = () => {
+    // eslint-disable-next-line no-unused-vars
     const [auth, setAuth] = useContext(UserContext);
     const history = useHistory();
 

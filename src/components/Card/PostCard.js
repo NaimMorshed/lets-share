@@ -6,7 +6,7 @@ const PostCard = ({ props }) => {
         <div className="App-header2">
             <section className="my-3 bg-gray-300 text-black p-5 rounded-xl parent">
                 <header className="flex h-14">
-                    <img className="rounded-full" src={props.userPhoto} alt="user" width="50px" height="100%" />
+                    <img className="rounded-full object-cover" src={props.userPhoto} alt="user" width="50px" height="100%" />
                     <div className="flex flex-col justify-center ml-2">
                         <h5 className="font-bold text-xl">{props.userName}</h5>
                         <span>October 6 at 12:59 PM</span>

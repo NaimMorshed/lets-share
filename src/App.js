@@ -7,7 +7,8 @@ import {
     Route,
     Switch
 } from "react-router-dom";
-import {createContext, useState} from "react";
+import { createContext, useState } from "react";
+import ImageUpload from './styles/Material/ImageUpload';
 export const UserContext = createContext();
 
 const App = () => {
@@ -20,29 +21,33 @@ const App = () => {
 
     const [modalOpen, setModalOpen] = useState(false);
 
-  return (
-    <UserContext.Provider value={[auth, setAuth, modalOpen, setModalOpen]}>
-        <Router>
-            <Switch>
-                <Route exact path="/">
-                    <Login />
-                </Route>
+    return (
+        <UserContext.Provider value={[auth, setAuth, modalOpen, setModalOpen]}>
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <Login />
+                    </Route>
 
-                <Route exact path="/home">
-                    <Home />
-                </Route>
+                    <Route exact path="/home">
+                        <Home />
+                    </Route>
 
-                <Route exact path="/profile">
-                    <Profile />
-                </Route>
+                    <Route exact path="/profile">
+                        <Profile />
+                    </Route>
 
-                <Route exact path="*">
-                    <Login />
-                </Route>
-            </Switch>
-        </Router>
-    </UserContext.Provider>
-  );
+                    <Route exact path="/upload">
+                        <ImageUpload />
+                    </Route>
+
+                    <Route exact path="*">
+                        <Login />
+                    </Route>
+                </Switch>
+            </Router>
+        </UserContext.Provider>
+    );
 }
 
 export default App;
