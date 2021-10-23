@@ -4,6 +4,7 @@ import firebase from "firebase/compat/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import firebaseConfig from '../../firebase.config'
 import { useHistory } from "react-router-dom";
+import { Firebase } from '../../Firebase';
 
 if (!firebase.apps.length)
     firebase.initializeApp(firebaseConfig);
@@ -19,25 +20,25 @@ const Login = () => {
         event.preventDefault();
     }
 
-    const googleSignIn = () => {
-        const auth = getAuth();
-        const provider = new GoogleAuthProvider();
+    // const googleSignIn = () => {
+    //     const auth = getAuth();
+    //     const provider = new GoogleAuthProvider();
 
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                setAuth({
-                    state: true,
-                    email: user.email,
-                    name: user.displayName,
-                    photo: user.photoURL
-                })
-                history.push('/profile');
-            }).catch((error) => {
-                const errorMessage = error.message;
-                alert(errorMessage);
-            });
-    }
+    //     signInWithPopup(auth, provider)
+    //         .then((result) => {
+    //             const user = result.user;
+    //             setAuth({
+    //                 state: true,
+    //                 email: user.email,
+    //                 name: user.displayName,
+    //                 photo: user.photoURL
+    //             })
+    //             history.push('/profile');
+    //         }).catch((error) => {
+    //             const errorMessage = error.message;
+    //             alert(errorMessage);
+    //         });
+    // }
 
     return (
         <div className={"App-header"}>
@@ -47,7 +48,7 @@ const Login = () => {
                 <input type="submit" value="Login" className="mb-4 rounded-lg px-5 py-1 bg-gray-700 text-white" />
 
                 <div className="social-div m-auto">
-                    <button onClick={googleSignIn} className="bg-gray-700 text-white px-3 py-1 rounded m-2">Google</button>
+                    <button onClick={Firebase} className="bg-gray-700 text-white px-3 py-1 rounded m-2">Google</button>
                     <button className="bg-gray-700 text-white px-3 py-1 rounded m-2">Facebook</button>
                 </div>
             </form>

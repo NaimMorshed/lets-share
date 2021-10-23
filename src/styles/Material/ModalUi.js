@@ -42,7 +42,11 @@ export const ModalUi = ({ props }) => {
                 <Box sx={style}>
                     <h1 className="text-2xl mb-4">Lets create your post</h1>
                     <div>
-                        <textarea className="focus:outline-none rounded-lg p-3" cols="50" rows="5" placeholder="Enter caption here"></textarea>
+                        <textarea
+                            className="focus:outline-none rounded-lg p-3"
+                            cols="50" rows="5"
+                            placeholder="Enter caption here">
+                        </textarea>
                     </div>
 
                     {/* ///////////////////////////////////////////// */}
@@ -64,14 +68,26 @@ export const ModalUi = ({ props }) => {
                                 dragProps,
                             }) => (
                                 <div className="upload__image-wrapper">
-                                    <button
-                                        className="bg-green-600 text-white px-5 py-2"
-                                        style={isDragging ? { color: 'red' } : undefined}
-                                        onClick={onImageUpload}
-                                        {...dragProps}
-                                    >
-                                        Click or Drop here
-                                    </button>
+                                    {
+                                        images.length === 0 ?
+                                            <button
+                                                className="bg-green-600 text-white px-5 py-2"
+                                                style={isDragging ? { color: 'red' } : undefined}
+                                                onClick={onImageUpload}
+                                                {...dragProps}
+                                            >
+                                                Click or Drop here
+                                            </button>
+                                            :
+                                            <button
+                                                className="bg-green-600 text-white px-5 py-2"
+                                                style={isDragging ? { color: 'red' } : undefined}
+                                                onClick={onImageUpload}
+                                                {...dragProps}
+                                            >
+                                                Add more images
+                                            </button>
+                                    }
                                     &nbsp;
                                     {
                                         images.length !== 0 &&
