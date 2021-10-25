@@ -8,7 +8,7 @@ import { UserContext } from '../../App';
 
 const Home = () => {
     const history = useHistory();
-    const [auth, setAuth, modalOpen, setModalOpen] = useContext(UserContext);
+    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
 
     const writePost = () => {
         setModalOpen(true);
@@ -34,7 +34,7 @@ const Home = () => {
         <main>
             <section>
                 {
-                    fakeData.map(data => <PostCard props={data} />)
+                    fakeData.map(data => <PostCard props={data} key={data.caption} />)
                 }
             </section>
             <section className="fixed inset-y-0 right-0 w-16l flex flex-col justify-center items-center w-12">

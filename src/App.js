@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import { createContext, useState } from "react";
 import ImageUpload from './styles/Material/ImageUpload';
-import DialogBox from './styles/Material/DialogBox';
 export const UserContext = createContext();
 
 const App = () => {
@@ -21,6 +20,11 @@ const App = () => {
     });
     const [modalOpen, setModalOpen] = useState(false);
     const [loginState, setLoginState] = useState(false);
+    const [dialogBox, setDialogBox] = useState({
+        state: false,
+        header: null,
+        body: null
+    });
 
     return (
         <UserContext.Provider
@@ -29,10 +33,12 @@ const App = () => {
                     auth, setAuth,
                     modalOpen, setModalOpen,
                     loginState, setLoginState,
+                    dialogBox, setDialogBox,
                 ]
             }>
             <Router>
                 <Switch>
+                    
                     <Route exact path="/">
                         <Login />
                     </Route>
@@ -49,13 +55,10 @@ const App = () => {
                         <ImageUpload />
                     </Route>
 
-                    <Route exact path="/dialog">
-                        <DialogBox />
-                    </Route>
-
                     <Route exact path="*">
                         <Login />
                     </Route>
+
                 </Switch>
             </Router>
         </UserContext.Provider>

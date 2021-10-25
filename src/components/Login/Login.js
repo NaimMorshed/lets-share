@@ -4,7 +4,7 @@ import Firebase from '../../Firebase/Firebase';
 
 const Login = () => {
     // eslint-disable-next-line no-unused-vars
-    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState] = useContext(UserContext);
+    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
 
     const formSubmit = event => {
         event.preventDefault();
@@ -19,12 +19,12 @@ const Login = () => {
                 <input
                     type="text"
                     placeholder={"Enter email"}
-                    className="mb-4 rounded-lg px-5 py-1"
+                    className="mb-4 rounded-lg px-5 py-1 outline-none"
                 />
                 <input
                     type="password"
                     placeholder={"Enter password"}
-                    className="mb-4 rounded-lg px-5 py-1"
+                    className="mb-4 rounded-lg px-5 py-1 outline-none"
                 />
                 <input
                     type="submit"

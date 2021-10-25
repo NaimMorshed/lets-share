@@ -15,7 +15,7 @@ else
 
 const Firebase = () => {
     // eslint-disable-next-line no-unused-vars
-    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState] = useContext(UserContext);
+    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
     const firebaseAuth = getAuth();
     const provider = new GoogleAuthProvider();
     const history = useHistory();
@@ -35,8 +35,19 @@ const Firebase = () => {
             })
             .catch((error) => {
                 const errorMessage = error.message;
-                alert(errorMessage);
-                <DialogBox />
+
+                errorMessage === "Firebase: Error (auth/popup-closed-by-user)." 
+                ? setDialogBox({
+                    state: true,
+                    header: 'Firebase Authentication',
+                    body: 'Authentication cancelled by user, please login first.'
+                })
+                : setDialogBox({
+                    state: true,
+                    header: 'Firebase Authentication',
+                    body: errorMessage
+                });
+
                 setLoginState(false);
             });
     }
