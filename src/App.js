@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { createContext, useState } from "react";
 import ImageUpload from './styles/Material/ImageUpload';
+import DialogBox from './styles/Material/DialogBox';
 export const UserContext = createContext();
 
 const App = () => {
@@ -46,6 +47,10 @@ const App = () => {
 
                     <Route exact path="/upload">
                         <ImageUpload />
+                    </Route>
+
+                    <Route exact path="/dialog">
+                        <DialogBox />
                     </Route>
 
                     <Route exact path="*">

@@ -5,6 +5,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useContext } from 'react';
 import { UserContext } from "../App";
 import { useHistory } from "react-router-dom";
+import DialogBox from "../styles/Material/DialogBox";
 
 if (!firebase.apps.length)
     firebase.initializeApp(firebaseConfig);
@@ -35,17 +36,22 @@ const Firebase = () => {
             .catch((error) => {
                 const errorMessage = error.message;
                 alert(errorMessage);
+                <DialogBox />
                 setLoginState(false);
             });
     }
 
     useEffect(() => {
-        
-        loginState === 'google' && googleLogin()
-            
+
+        loginState === 'google' ? googleLogin() : <></>
+
     }, [loginState])
 
-    return (<></>);
+    return (
+        <>
+            <DialogBox />
+        </>
+    );
 }
 
 export default Firebase;
