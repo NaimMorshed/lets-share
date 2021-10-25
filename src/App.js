@@ -18,11 +18,18 @@ const App = () => {
         name: null,
         photo: null
     });
-
     const [modalOpen, setModalOpen] = useState(false);
+    const [loginState, setLoginState] = useState(false);
 
     return (
-        <UserContext.Provider value={[auth, setAuth, modalOpen, setModalOpen]}>
+        <UserContext.Provider
+            value={
+                [
+                    auth, setAuth,
+                    modalOpen, setModalOpen,
+                    loginState, setLoginState,
+                ]
+            }>
             <Router>
                 <Switch>
                     <Route exact path="/">
