@@ -8,7 +8,8 @@ import {
     Switch
 } from "react-router-dom";
 import { createContext, useState } from "react";
-import ImageUpload from './styles/Material/ImageUpload';
+import ImageUpload from './components/Testing/ImageUpload';
+import Testing from './components/Testing/Testing';
 export const UserContext = createContext();
 
 const App = () => {
@@ -53,6 +54,10 @@ const App = () => {
 
                     <Route exact path="/upload">
                         <ImageUpload />
+                    </Route>
+
+                    <Route exact path="/testing">
+                        <Testing />
                     </Route>
 
                     <Route exact path="*">

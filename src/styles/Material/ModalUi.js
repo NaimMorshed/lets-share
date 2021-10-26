@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { UserContext } from '../../App';
 import ImageUploading from 'react-images-uploading';
-const axios = require('axios').default;
+import { storage } from '../../Firebase/Storage';
 
 
 const style = {
@@ -22,38 +22,32 @@ const style = {
 
 
 export const ModalUi = ({ props }) => {
-    // eslint-disable-next-line no-unused-vars
-    const [auth, setAuth, modalOpen, setModalOpen] = useContext(UserContext);
-    //const [progress, setProgress] = React.useState(0);
+    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
     const handleClose = () => setModalOpen(false);
 
     const [images, setImages] = React.useState([]);
     const maxNumber = 1;
 
     const onChange = (imageList, addUpdateIndex) => {
-        //console.log(imageList);
         setImages(imageList);
     };
 
     const publish = () => {
-        if (images.length !== 0) {
-
-            const imageData = new FormData();
-            imageData.set('key', '2e6b03bfb364d782703bbc4ad0f67996');
-            imageData.append('image', images[0])
-
-            console.log("started");
-
-            axios
-                .post('https://api.imgbb.com/1/upload', imageData)
-                .then(response => {
-                    console.log(response.data.data.display_url);
-                })
-                .catch(error => {
-                    alert(error)
-                });
-
-        }
+        const uploadTask = storage.ref(`images/${images[0].file.name}`).put(images[0].file);
+        uploadTask.on(
+            'state_changed',
+            snapshot => { },
+            error => { console.log(error) },
+            () => {
+                storage
+                    .ref('images')
+                    .child(images[0].file.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        console.log(url);
+                    })
+            }
+        )
     }
 
     return (
@@ -155,10 +149,7 @@ export const ModalUi = ({ props }) => {
                     {/* ///////////////////////////////////////////// */}
 
                     <div className="flex justify-center mt-5">
-                        <button
-                            onClick={publish}
-                            className="bg-gray-600 text-white px-3 py-1 rounded-lg"
-                        >
+                        <button onClick={publish} className="bg-gray-600 text-white px-3 py-1 rounded-lg">
                             Upload
                         </button>
                     </div>
