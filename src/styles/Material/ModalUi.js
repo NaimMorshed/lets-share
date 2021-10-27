@@ -5,6 +5,8 @@ import Modal from '@mui/material/Modal';
 import { UserContext } from '../../App';
 import ImageUploading from 'react-images-uploading';
 import { storage } from '../../Firebase/Storage';
+import { db } from '../../Firebase/Firestore';
+import SimpleBackdrop from './SimpleBackdrop';
 
 
 const style = {
@@ -22,7 +24,16 @@ const style = {
 
 
 export const ModalUi = ({ props }) => {
-    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
+    const [
+        auth, setAuth,
+        modalOpen, setModalOpen,
+        loginState, setLoginState,
+        dialogBox, setDialogBox,
+        backdrop, setBackdrop
+    ] = useContext(UserContext);
+
+    const captionRef = React.useRef(null);
+
     const handleClose = () => setModalOpen(false);
 
     const [images, setImages] = React.useState([]);
@@ -33,18 +44,45 @@ export const ModalUi = ({ props }) => {
     };
 
     const publish = () => {
-        const uploadTask = storage.ref(`images/${images[0].file.name}`).put(images[0].file);
+        setBackdrop(true);
+        const uploadTask = storage.ref(`Public-post/${auth.email}/${images[0].file.name}`).put(images[0].file);
         uploadTask.on(
             'state_changed',
             snapshot => { },
-            error => { console.log(error) },
+            error => {
+                setBackdrop(false);
+                console.log(error)
+            },
             () => {
                 storage
-                    .ref('images')
+                    .ref(`Public-post/${auth.email}`)
                     .child(images[0].file.name)
                     .getDownloadURL()
                     .then(url => {
-                        console.log(url);
+                        // Firestore
+                        db.collection("Public-post")
+                            .add({
+                                userName: auth.name,
+                                userEmail: auth.email,
+                                userPhoto: auth.photo,
+                                caption: captionRef.current.value,
+                                image: url,
+                                postingDate: `${getCurrentDate()} at `,
+                                postingTime: getCurrentTime(),
+                                likes: 0,
+                                dislikes: 0,
+                                comment: 0,
+                            })
+                            .then(docRef => {
+                                setBackdrop(false);
+                                console.log("Document written with ID: ", docRef.id);
+                                setModalOpen(false);
+                            })
+                            .catch(error => {
+                                setBackdrop(false);
+                                console.error("Error adding document: ", error);
+                                setModalOpen(false);
+                            });
                     })
             }
         )
@@ -62,6 +100,7 @@ export const ModalUi = ({ props }) => {
                     <h1 className="text-2xl mb-4">Lets create your post</h1>
                     <div>
                         <textarea
+                            ref={captionRef}
                             className="focus:outline-none rounded-lg p-3"
                             cols="50" rows="5"
                             placeholder="Enter caption here">
@@ -153,8 +192,42 @@ export const ModalUi = ({ props }) => {
                             Upload
                         </button>
                     </div>
+                    <SimpleBackdrop />
                 </Box>
             </Modal>
         </div>
     );
+}
+
+
+
+const getCurrentTime = () => {
+    const today = new Date();
+    return today.getHours() + ":" + today.getMinutes();
+}
+
+const getCurrentDate = () => {
+
+    let myCurrentDate = new Date()
+    let date = myCurrentDate.getDate();
+    let month = myCurrentDate.getMonth() + 1;
+    let year = myCurrentDate.getFullYear();
+    let monthInWord = null;
+    switch (month) {
+        case 1: monthInWord = 'January'; break;
+        case 2: monthInWord = 'February'; break;
+        case 3: monthInWord = 'March'; break;
+        case 4: monthInWord = 'April'; break;
+        case 5: monthInWord = 'May'; break;
+        case 6: monthInWord = 'June'; break;
+        case 7: monthInWord = 'July'; break;
+        case 8: monthInWord = 'August'; break;
+        case 9: monthInWord = 'September'; break;
+        case 10: monthInWord = 'October'; break;
+        case 11: monthInWord = 'November'; break;
+        case 12: monthInWord = 'December'; break;
+        default: break;
+    }
+
+    return `${date} ${monthInWord}, ${year}`
 }

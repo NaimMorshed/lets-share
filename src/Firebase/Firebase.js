@@ -66,3 +66,4 @@ const Firebase = () => {
 }
 
 export default Firebase;
+// export { signInWithPopup, firebaseAuth, provider }

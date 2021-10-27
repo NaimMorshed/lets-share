@@ -1,10 +1,21 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../App';
+import { useHistory, useLocation } from 'react-router';
 import Firebase from '../../Firebase/Firebase';
 
 const Login = () => {
     // eslint-disable-next-line no-unused-vars
-    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
+    const [
+        auth, setAuth,
+        modalOpen, setModalOpen,
+        loginState, setLoginState,
+        dialogBox, setDialogBox,
+        backdrop, setBackdrop
+    ] = useContext(UserContext);
+
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
 
     const formSubmit = event => {
         event.preventDefault();

@@ -26,6 +26,7 @@ const App = () => {
         header: null,
         body: null
     });
+    const [backdrop, setBackdrop] = useState(false);
 
     return (
         <UserContext.Provider
@@ -35,6 +36,7 @@ const App = () => {
                     modalOpen, setModalOpen,
                     loginState, setLoginState,
                     dialogBox, setDialogBox,
+                    backdrop, setBackdrop
                 ]
             }>
             <Router>
