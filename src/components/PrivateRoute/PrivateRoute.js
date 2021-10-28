@@ -6,7 +6,6 @@ const PrivateRoute = ({ children, ...rest }) => {
     const [
         auth, setAuth,
         modalOpen, setModalOpen,
-        loginState, setLoginState,
         dialogBox, setDialogBox,
         backdrop, setBackdrop
     ] = useContext(UserContext);

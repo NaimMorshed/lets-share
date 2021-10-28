@@ -10,6 +10,7 @@ import {
 import { createContext, useState } from "react";
 import ImageUpload from './components/Testing/ImageUpload';
 import Testing from './components/Testing/Testing';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 export const UserContext = createContext();
 
 const App = () => {
@@ -20,7 +21,6 @@ const App = () => {
         photo: null
     });
     const [modalOpen, setModalOpen] = useState(false);
-    const [loginState, setLoginState] = useState(false);
     const [dialogBox, setDialogBox] = useState({
         state: false,
         header: null,
@@ -34,7 +34,6 @@ const App = () => {
                 [
                     auth, setAuth,
                     modalOpen, setModalOpen,
-                    loginState, setLoginState,
                     dialogBox, setDialogBox,
                     backdrop, setBackdrop
                 ]
@@ -42,17 +41,17 @@ const App = () => {
             <Router>
                 <Switch>
                     
-                    <Route exact path="/">
+                    <PrivateRoute exact path="/">
                         <Login />
-                    </Route>
+                    </PrivateRoute>
 
-                    <Route exact path="/home">
+                    <PrivateRoute exact path="/home">
                         <Home />
-                    </Route>
+                    </PrivateRoute>
 
-                    <Route exact path="/profile">
+                    <PrivateRoute exact path="/profile">
                         <Profile />
-                    </Route>
+                    </PrivateRoute>
 
                     <Route exact path="/upload">
                         <ImageUpload />

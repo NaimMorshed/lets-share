@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
-import Firebase from '../../Firebase/Firebase';
+import { signInWithPopup, firebaseAuth, provider } from '../../Firebase/GoogleSign';
+import DialogBox from '../../styles/Material/DialogBox';
 
 const Login = () => {
-    // eslint-disable-next-line no-unused-vars
+    
     const [
         auth, setAuth,
         modalOpen, setModalOpen,
-        loginState, setLoginState,
         dialogBox, setDialogBox,
         backdrop, setBackdrop
     ] = useContext(UserContext);
@@ -19,6 +19,35 @@ const Login = () => {
 
     const formSubmit = event => {
         event.preventDefault();
+    }
+
+    const googleLogin = () => {
+        signInWithPopup(firebaseAuth, provider)
+            .then((result) => {
+                const user = result.user;
+                setAuth({
+                    state: true,
+                    email: user.email,
+                    name: user.displayName,
+                    photo: user.photoURL
+                })
+                history.replace(from);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+
+                errorMessage === "Firebase: Error (auth/popup-closed-by-user)."
+                    ? setDialogBox({
+                        state: true,
+                        header: 'Firebase Authentication',
+                        body: 'Authentication cancelled by user, please login first.'
+                    })
+                    : setDialogBox({
+                        state: true,
+                        header: 'Firebase Authentication',
+                        body: errorMessage
+                    });
+            });
     }
 
     return (
@@ -45,7 +74,7 @@ const Login = () => {
 
                 <div className="social-div m-auto">
                     <button
-                        onClick={() => setLoginState('google')}
+                        onClick={googleLogin}
                         className="bg-gray-700 text-white px-3 py-1 rounded m-2"
                     >
                         Google
@@ -58,7 +87,7 @@ const Login = () => {
                     </button>
                 </div>
             </form>
-            <Firebase />
+            <DialogBox />
         </div>
     );
 };

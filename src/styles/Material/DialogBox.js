@@ -9,7 +9,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 const DialogBox = ({ props }) => {
     // eslint-disable-next-line no-unused-vars
-    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = React.useContext(UserContext);
+    const [
+        auth, setAuth, 
+        modalOpen, setModalOpen, 
+        dialogBox, setDialogBox
+    ] = React.useContext(UserContext);
 
     const handleClose = () => {
         setDialogBox({

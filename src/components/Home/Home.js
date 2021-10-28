@@ -5,10 +5,18 @@ import { WritePost, Search, ThumbsUp, ThumbsDown, Logout } from '../../assets/He
 import { useHistory } from 'react-router';
 import { ModalUi } from '../../styles/Material/ModalUi';
 import { UserContext } from '../../App';
+import { db } from '../../Firebase/Firestore';
 
 const Home = () => {
     const history = useHistory();
-    const [auth, setAuth, modalOpen, setModalOpen, loginState, setLoginState, dialogBox, setDialogBox] = useContext(UserContext);
+    const [
+        auth, setAuth,
+        modalOpen, setModalOpen,
+        dialogBox, setDialogBox,
+        backdrop, setBackdrop
+    ] = useContext(UserContext);
+
+    const [data, setData] = React.useState([]);
 
     const writePost = () => {
         setModalOpen(true);
@@ -29,6 +37,17 @@ const Home = () => {
     const logout = () => {
 
     }
+
+    db.collection("Public-post")
+        .get()
+        .then(querySnapshot => {
+            querySnapshot
+                .forEach(doc => {
+                    console.log(doc.data());
+                });
+        });
+
+
 
     return (
         <main>
