@@ -11,9 +11,11 @@ import { createContext, useState } from "react";
 import ImageUpload from './components/Testing/ImageUpload';
 import Testing from './components/Testing/Testing';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import NavBar from './components/NavBar/NavBar';
 export const UserContext = createContext();
 
 const App = () => {
+
     const [auth, setAuth] = useState({
         state: false,
         email: null,
@@ -42,8 +44,12 @@ const App = () => {
                 <Switch>
                     
                     <PrivateRoute exact path="/">
-                        <Login />
+                        <Home />
                     </PrivateRoute>
+
+                    <Route exact path="/login">
+                        <Login />
+                    </Route>
 
                     <PrivateRoute exact path="/home">
                         <Home />

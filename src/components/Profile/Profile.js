@@ -1,9 +1,14 @@
 import React, { useContext } from 'react';
-import {UserContext} from '../../App';
+import { UserContext } from '../../App';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
-    const [auth, setAuth] = useContext(UserContext);
+    const [
+        auth, setAuth,
+        modalOpen, setModalOpen,
+        dialogBox, setDialogBox,
+        backdrop, setBackdrop
+    ] = useContext(UserContext);
 
     return (
         <div className="App">

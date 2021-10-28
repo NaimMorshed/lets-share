@@ -7,7 +7,6 @@ export default function SimpleBackdrop() {
     const [
         auth, setAuth,
         modalOpen, setModalOpen,
-        loginState, setLoginState,
         dialogBox, setDialogBox,
         backdrop, setBackdrop
     ] = React.useContext(UserContext);

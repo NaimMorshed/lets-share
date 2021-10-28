@@ -1,9 +1,9 @@
 import { firebaseConfig } from './Config';
-import 'firebase/compat/firestore';
+import 'firebase/compat/database';
 import firebase from 'firebase/compat/app';
 
 firebase.initializeApp(firebaseConfig);
 
-const firestoreDB = firebase.firestore();
+const realtimeDB = firebase.database();
 
-export { firestoreDB, firebase as default };
+export { realtimeDB, firebase as default };
