@@ -1,8 +1,19 @@
 import React from 'react';
 import LongMenu from '../../styles/Material/LongMenu';
 import './PostCard.css';
+import { realtimeDB } from '../../Firebase/Realtime';
 
 const PostCard = ({ props }) => {
+
+    const like = () => {
+        realtimeDB
+        .ref('Public-post')
+        .child(props.id)
+        .update({
+            
+        })
+    }
+
     return (
         <div className="App-header2">
             <section className="my-3 bg-gray-300 text-black p-5 rounded-xl parent">
@@ -30,7 +41,7 @@ const PostCard = ({ props }) => {
                     </div>
                     <div className="flex justify-around items-center social-icons">
                         <div>
-                            <button>👍</button>
+                            <button onClick={like}>👍</button>
                             <span className="relative top-1 left-1 text-lg text-green-800 font-serif">{props.likes}</span>
                         </div>
                         <div>

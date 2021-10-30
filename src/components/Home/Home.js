@@ -29,10 +29,6 @@ const Home = () => {
     }
 
     const likedPost = () => {
-        realtimeDB.ref('Public-post').child(props.id)
-            .update({
-
-            })
     }
 
     const dislikedPost = () => {
