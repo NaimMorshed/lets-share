@@ -15,7 +15,7 @@ const PostCard = ({ props }) => {
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <LongMenu />
+                        <LongMenu props={props} />
                     </div>
                 </header>
                 <main>

@@ -29,7 +29,10 @@ const Home = () => {
     }
 
     const likedPost = () => {
+        realtimeDB.ref('Public-post').child(props.id)
+            .update({
 
+            })
     }
 
     const dislikedPost = () => {
@@ -50,14 +53,12 @@ const Home = () => {
         parent.on('value', (snapshot) => {
             const dataFromDB = snapshot.val();
             const list = [];
-            for (let data in dataFromDB) {
-                list.push(dataFromDB[data]);
+            for (let id in dataFromDB) {
+                list.push({ id, ...dataFromDB[id] });
             }
-            console.log(list);
             setData(list);
         })
     }, [])
-
 
 
     return (

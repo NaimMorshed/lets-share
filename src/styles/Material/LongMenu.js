@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { realtimeDB } from '../../Firebase/Realtime';
 
 const options = [
     'Edit',
@@ -11,15 +12,23 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu() {
+export default function LongMenu({ props }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const handleClick = (event) => setAnchorEl(event.currentTarget);
+    const handleClose = () => setAnchorEl(null);
+
+    const editClick = () => {
+        // realtimeDB.ref('Public-post').child(props.id)
+        //     .update({
+
+        //     })
+        alert('under development');
+    }
+
+    const deleteClick = () => {
+        realtimeDB.ref('Public-post').child(props.id).remove();
+    }
 
     return (
         <div>
@@ -49,7 +58,12 @@ export default function LongMenu() {
                 }}
             >
                 {options.map((option) => (
-                    <MenuItem key={option} onClick={()=> <></>}>
+                    <MenuItem
+                        key={option}
+                        onClick={() => {
+                            option === 'Edit' ? editClick() : deleteClick()
+                        }}
+                    >
                         {option}
                     </MenuItem>
                 ))}

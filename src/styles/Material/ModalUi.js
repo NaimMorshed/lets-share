@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 import { UserContext } from '../../App';
 import ImageUploading from 'react-images-uploading';
 import { storage } from '../../Firebase/Storage';
-import { firestoreDB } from '../../Firebase/Firestore';
 import { realtimeDB } from '../../Firebase/Realtime';
 import SimpleBackdrop from './SimpleBackdrop';
 
@@ -43,32 +42,6 @@ export const ModalUi = ({ props }) => {
         setImages(imageList);
     };
 
-    const firestorePush = (url) => {
-        firestoreDB.collection("Public-post")
-            .add({
-                userName: auth.name,
-                userEmail: auth.email,
-                userPhoto: auth.photo,
-                caption: captionRef.current.value,
-                image: url,
-                postingDate: `${getCurrentDate()} at `,
-                postingTime: getCurrentTime(),
-                likes: 0,
-                dislikes: 0,
-                comment: 0,
-            })
-            .then(docRef => {
-                setBackdrop(false);
-                console.log("Document written with ID: ", docRef.id);
-                setModalOpen(false);
-            })
-            .catch(error => {
-                setBackdrop(false);
-                console.error("Error adding document: ", error);
-                setModalOpen(false);
-            });
-    }
-
     const realtimePush = (url) => {
         const parent = realtimeDB.ref('Public-post');
         const child = {
@@ -104,7 +77,6 @@ export const ModalUi = ({ props }) => {
                     .child(images[0].file.name)
                     .getDownloadURL()
                     .then(url => {
-                        // firestorePush(url);
                         realtimePush(url);
                     })
             }

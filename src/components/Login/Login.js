@@ -5,7 +5,7 @@ import { signInWithPopup, firebaseAuth, provider } from '../../Firebase/GoogleSi
 import DialogBox from '../../styles/Material/DialogBox';
 
 const Login = () => {
-    
+
     const [
         auth, setAuth,
         modalOpen, setModalOpen,
