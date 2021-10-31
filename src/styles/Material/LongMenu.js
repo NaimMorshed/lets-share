@@ -19,10 +19,6 @@ export default function LongMenu({ props }) {
     const handleClose = () => setAnchorEl(null);
 
     const editClick = () => {
-        // realtimeDB.ref('Public-post').child(props.id)
-        //     .update({
-
-        //     })
         alert('under development');
     }
 

@@ -1,17 +1,100 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import LongMenu from '../../styles/Material/LongMenu';
 import './PostCard.css';
 import { realtimeDB } from '../../Firebase/Realtime';
+import { UserContext } from '../../App';
+import { Chat, ThumbsUpHollow, ThumbsUpFilled, ThumbsDownHollow, ThumbsDownFilled } from '../../assets/HeroIcons';
 
 const PostCard = ({ props }) => {
+    const [auth, setAuth] = useContext(UserContext);
 
     const like = () => {
-        realtimeDB
-        .ref('Public-post')
-        .child(props.id)
-        .update({
-            
-        })
+        realtimeDB.ref('Public-post').child(props.id)
+            .update({
+                userName: props.userName,
+                userEmail: props.userEmail,
+                userPhoto: props.userPhoto,
+                caption: props.caption,
+                image: props.image,
+                postingDate: props.postingDate,
+                postingTime: props.postingTime,
+                likes: props.likes + 1,
+                dislikes: props.dislikes,
+                comment: props.comment,
+                likedUsers: [
+                    auth.email
+                ],
+                dislikedUsers: props.dislikedUsers
+            })
+    }
+
+    const unlike = () => {
+        realtimeDB.ref('Public-post').child(props.id)
+            .update({
+                userName: props.userName,
+                userEmail: props.userEmail,
+                userPhoto: props.userPhoto,
+                caption: props.caption,
+                image: props.image,
+                postingDate: props.postingDate,
+                postingTime: props.postingTime,
+                likes: props.likes - 1,
+                dislikes: props.dislikes,
+                comment: props.comment,
+                likedUsers: [""],
+                dislikedUsers: props.dislikedUsers
+            })
+    }
+
+    const undislike = () => {
+        realtimeDB.ref('Public-post').child(props.id)
+            .update({
+                userName: props.userName,
+                userEmail: props.userEmail,
+                userPhoto: props.userPhoto,
+                caption: props.caption,
+                image: props.image,
+                postingDate: props.postingDate,
+                postingTime: props.postingTime,
+                likes: props.likes,
+                dislikes: props.dislikes - 1,
+                comment: props.comment,
+                likedUsers: props.likedUsers,
+                dislikedUsers: [""]
+            })
+    }
+
+    const dislike = () => {
+        realtimeDB.ref('Public-post').child(props.id)
+            .update({
+                userName: props.userName,
+                userEmail: props.userEmail,
+                userPhoto: props.userPhoto,
+                caption: props.caption,
+                image: props.image,
+                postingDate: props.postingDate,
+                postingTime: props.postingTime,
+                likes: props.likes,
+                dislikes: props.dislikes + 1,
+                comment: props.comment,
+                likedUsers: props.likedUsers,
+                dislikedUsers: [
+                    auth.email
+                ]
+            })
+    }
+
+    const chat = () => {
+        // const arr = [
+        //     "Hello",
+        //     "World",
+        //     "Tintin"
+        // ]
+        // const i = arr.indexOf("World");
+        // arr.splice(i, 1);
+        // console.log(arr);
+
+        const arr = [{...props.likedUsers}]
     }
 
     return (
@@ -41,16 +124,26 @@ const PostCard = ({ props }) => {
                     </div>
                     <div className="flex justify-around items-center social-icons">
                         <div>
-                            <button onClick={like}>👍</button>
-                            <span className="relative top-1 left-1 text-lg text-green-800 font-serif">{props.likes}</span>
+                            {
+                                props.likedUsers.includes(auth.email) ?
+                                    <button onClick={unlike}><ThumbsUpFilled /></button> :
+                                    <button onClick={like}><ThumbsUpHollow /></button>
+
+                            }
+                            <span className="relative left-1 text-xl text-green-800 font-serif">{props.likes}</span>
                         </div>
-                        <div>
-                            <button>👎</button>
-                            <span className="relative left-1 text-lg text-red-800 font-serif">{props.dislikes}</span>
+                        <div className="relative top-2">
+                            {
+                                props.dislikedUsers.includes(auth.email) ?
+                                    <button onClick={undislike}><ThumbsDownFilled /></button> :
+                                    <button onClick={dislike}><ThumbsDownHollow /></button>
+
+                            }
+                            <span className="relative left-2 bottom-2 text-xl text-red-800 font-serif">{props.dislikes}</span>
                         </div>
-                        <div>
-                            <button>✍</button>
-                            <span className="relative left-1 text-lg top-1 font-serif">{props.comment}</span>
+                        <div className="relative top-1">
+                            <button onClick={chat}><Chat /></button>
+                            <span className="relative left-2 text-xl bottom-1 font-serif">{props.comment}</span>
                         </div>
                     </div>
                 </main>
