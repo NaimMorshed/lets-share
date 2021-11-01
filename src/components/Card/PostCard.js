@@ -94,7 +94,8 @@ const PostCard = ({ props }) => {
         // arr.splice(i, 1);
         // console.log(arr);
 
-        const arr = [{...props.likedUsers}]
+        const arr = [...props.likedUsers]
+        console.log(typeof arr);
     }
 
     return (
