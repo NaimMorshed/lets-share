@@ -9,6 +9,8 @@ const PostCard = ({ props }) => {
     const [auth, setAuth] = useContext(UserContext);
 
     const like = () => {
+        const arrayData = [...props.likedUsers, auth.email];
+
         realtimeDB.ref('Public-post').child(props.id)
             .update({
                 userName: props.userName,
@@ -94,8 +96,12 @@ const PostCard = ({ props }) => {
         // arr.splice(i, 1);
         // console.log(arr);
 
-        const arr = [...props.likedUsers]
-        console.log(typeof arr);
+       const arr = [
+           "apple",
+           "banana",
+           "chips"
+       ]
+        console.log(arr.includes(""));
     }
 
     return (

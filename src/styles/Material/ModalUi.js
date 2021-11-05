@@ -55,12 +55,8 @@ export const ModalUi = ({ props }) => {
             likes: 0,
             dislikes: 0,
             comment: 0,
-            likedUsers: [
-                'morshed.naim13@gmail.com'
-            ],
-            dislikedUsers: [
-                ''
-            ]
+            likedUsers: [""],
+            dislikedUsers: [""]
         }
         parent.push(child);
         setBackdrop(false);
