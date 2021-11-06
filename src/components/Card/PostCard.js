@@ -9,104 +9,164 @@ const PostCard = ({ props }) => {
     const [auth, setAuth] = useContext(UserContext);
 
     const like = () => {
-        const arrayData = [...props.likedUsers, auth.email];
-
-        realtimeDB.ref('Public-post').child(props.id)
-            .update({
-                userName: props.userName,
-                userEmail: props.userEmail,
-                userPhoto: props.userPhoto,
-                caption: props.caption,
-                image: props.image,
-                postingDate: props.postingDate,
-                postingTime: props.postingTime,
-                likes: props.likes + 1,
-                dislikes: props.dislikes,
-                comment: props.comment,
-                likedUsers: [
-                    auth.email
-                ],
-                dislikedUsers: props.dislikedUsers
-            })
+        props.likedUsers.includes("") ?
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes + 1,
+                    dislikes: props.dislikes,
+                    comment: props.comment,
+                    likedUsers: [
+                        auth.email
+                    ],
+                    dislikedUsers: props.dislikedUsers
+                })
+            :
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes + 1,
+                    dislikes: props.dislikes,
+                    comment: props.comment,
+                    likedUsers: [
+                        ...props.likedUsers,
+                        auth.email
+                    ],
+                    dislikedUsers: props.dislikedUsers
+                })
     }
 
     const unlike = () => {
-        realtimeDB.ref('Public-post').child(props.id)
-            .update({
-                userName: props.userName,
-                userEmail: props.userEmail,
-                userPhoto: props.userPhoto,
-                caption: props.caption,
-                image: props.image,
-                postingDate: props.postingDate,
-                postingTime: props.postingTime,
-                likes: props.likes - 1,
-                dislikes: props.dislikes,
-                comment: props.comment,
-                likedUsers: [""],
-                dislikedUsers: props.dislikedUsers
-            })
+        props.likedUsers.length === 1 ?
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes - 1,
+                    dislikes: props.dislikes,
+                    comment: props.comment,
+                    likedUsers: [""],
+                    dislikedUsers: props.dislikedUsers
+                })
+            :
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes - 1,
+                    dislikes: props.dislikes,
+                    comment: props.comment,
+                    likedUsers: props.likedUsers.filter(val => val !== auth.email),
+                    dislikedUsers: props.dislikedUsers
+                })
     }
 
     const undislike = () => {
-        realtimeDB.ref('Public-post').child(props.id)
-            .update({
-                userName: props.userName,
-                userEmail: props.userEmail,
-                userPhoto: props.userPhoto,
-                caption: props.caption,
-                image: props.image,
-                postingDate: props.postingDate,
-                postingTime: props.postingTime,
-                likes: props.likes,
-                dislikes: props.dislikes - 1,
-                comment: props.comment,
-                likedUsers: props.likedUsers,
-                dislikedUsers: [""]
-            })
+        props.dislikedUsers.length === 1 ?
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes,
+                    dislikes: props.dislikes - 1,
+                    comment: props.comment,
+                    likedUsers: props.likedUsers,
+                    dislikedUsers: [""]
+                })
+            :
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes,
+                    dislikes: props.dislikes - 1,
+                    comment: props.comment,
+                    likedUsers: props.likedUsers,
+                    dislikedUsers: props.dislikedUsers.filter(val => val !== auth.email)
+                })
     }
 
     const dislike = () => {
-        realtimeDB.ref('Public-post').child(props.id)
-            .update({
-                userName: props.userName,
-                userEmail: props.userEmail,
-                userPhoto: props.userPhoto,
-                caption: props.caption,
-                image: props.image,
-                postingDate: props.postingDate,
-                postingTime: props.postingTime,
-                likes: props.likes,
-                dislikes: props.dislikes + 1,
-                comment: props.comment,
-                likedUsers: props.likedUsers,
-                dislikedUsers: [
-                    auth.email
-                ]
-            })
+        props.likedUsers.includes("") ?
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes,
+                    dislikes: props.dislikes + 1,
+                    comment: props.comment,
+                    likedUsers: props.likedUsers,
+                    dislikedUsers: [
+                        auth.email
+                    ]
+                })
+            :
+            realtimeDB.ref('Public-post').child(props.id)
+                .update({
+                    userName: props.userName,
+                    userEmail: props.userEmail,
+                    userPhoto: props.userPhoto,
+                    caption: props.caption,
+                    image: props.image,
+                    postingDate: props.postingDate,
+                    postingTime: props.postingTime,
+                    likes: props.likes,
+                    dislikes: props.dislikes + 1,
+                    comment: props.comment,
+                    likedUsers: props.likedUsers,
+                    dislikedUsers: [
+                        ...props.dislikedUsers,
+                        auth.email
+                    ]
+                })
     }
 
     const chat = () => {
-        // const arr = [
-        //     "Hello",
-        //     "World",
-        //     "Tintin"
-        // ]
-        // const i = arr.indexOf("World");
-        // arr.splice(i, 1);
-        // console.log(arr);
-
-       const arr = [
-           "apple",
-           "banana",
-           "chips"
-       ]
-        console.log(arr.includes(""));
+        
     }
 
     return (
         <div className="App-header2">
             <section className="my-3 bg-gray-300 text-black p-5 rounded-xl parent">
+
+                {/* image, name, date and longMenu section */}
                 <header className="flex justify-between h-14 mb-5">
                     <div className="flex">
                         <img className="rounded-full object-cover" src={props.userPhoto} alt="user" width="50px" height="100%" />
@@ -119,6 +179,8 @@ const PostCard = ({ props }) => {
                         <LongMenu props={props} />
                     </div>
                 </header>
+
+                {/* caption, image, like, dislike section */}
                 <main>
                     {
                         props.caption !== '' &&
@@ -154,6 +216,12 @@ const PostCard = ({ props }) => {
                         </div>
                     </div>
                 </main>
+
+                {/* comment section */}
+                <footer className="flex h-8 mt-7">
+                    <img className="rounded-full object-cover" src={auth.photo} alt="" />
+                    <input className="focus:outline-none rounded-lg text-justify px-3 py-1 ml-2 w-full" type="text" placeholder="type your comment" />
+                </footer>
             </section>
         </div>
     );

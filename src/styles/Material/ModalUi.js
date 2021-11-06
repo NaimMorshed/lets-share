@@ -54,9 +54,11 @@ export const ModalUi = ({ props }) => {
             postingTime: getCurrentTime(),
             likes: 0,
             dislikes: 0,
+            chatCount: 0,
             comment: 0,
             likedUsers: [""],
-            dislikedUsers: [""]
+            dislikedUsers: [""],
+            chatList: [""]
         }
         parent.push(child);
         setBackdrop(false);
